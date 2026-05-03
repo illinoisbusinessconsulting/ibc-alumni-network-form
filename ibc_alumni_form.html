@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>IBC Alumni Network — Join the Directory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=DM+Serif+Display&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#13294B;
+  --navy-light:#1a3663;
+  --orange:#FF5F05;
+  --orange-light:#ff7a2e;
+  --cream:#FAFAF8;
+  --border:#e2e0d8;
+  --text:#1a1a1a;
+  --muted:#6b6b6b;
+  --success:#2d7a4f;
+  --error:#c0392b;
+  --tag-bg:#EEF2FA;
+  --tag-text:#13294B;
+}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--cream);
+  color:var(--text);
+  min-height:100vh;
+  font-size:15px;
+  line-height:1.6;
+}
+
+/* ─── Header ─── */
+.header{
+  background:var(--navy);
+  color:#fff;
+  padding:2.5rem 2rem 3rem;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.header::before{
+  content:'';
+  position:absolute;
+  bottom:0;left:0;right:0;height:4px;
+  background:var(--orange);
+}
+.header-badge{
+  display:inline-block;
+  background:rgba(255,95,5,0.18);
+  color:var(--orange-light);
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  padding:4px 14px;
+  border-radius:20px;
+  border:1px solid rgba(255,95,5,0.35);
+  margin-bottom:1rem;
+}
+.header h1{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(1.6rem,4vw,2.4rem);
+  font-weight:400;
+  color:#fff;
+  margin-bottom:.6rem;
+  line-height:1.2;
+}
+.header-sub{
+  font-size:14px;
+  color:rgba(255,255,255,.65);
+  max-width:480px;
+  margin:0 auto 1.6rem;
+}
+.bullets{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:8px;
+  max-width:560px;
+  margin:0 auto;
+}
+.bullet{
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:6px;
+  padding:5px 12px;
+  font-size:13px;
+  color:rgba(255,255,255,.8);
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.bullet::before{content:'→';color:var(--orange);font-size:11px}
+
+/* ─── Progress ─── */
+.progress-bar-wrap{
+  background:#fff;
+  border-bottom:1px solid var(--border);
+  padding:0;
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+.progress-steps{
+  display:flex;
+  max-width:680px;
+  margin:0 auto;
+}
+.prog-step{
+  flex:1;
+  text-align:center;
+  padding:10px 4px;
+  font-size:12px;
+  font-weight:500;
+  color:var(--muted);
+  cursor:pointer;
+  border-bottom:3px solid transparent;
+  transition:all .2s;
+  position:relative;
+}
+.prog-step.active{color:var(--navy);border-bottom-color:var(--orange)}
+.prog-step.done{color:var(--success);border-bottom-color:var(--success)}
+.prog-step.done::after{content:'✓';margin-left:4px;font-size:10px}
+
+/* ─── Form Layout ─── */
+.form-wrap{
+  max-width:680px;
+  margin:2rem auto;
+  padding:0 1rem 4rem;
+}
+.form-section{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:2rem;
+  margin-bottom:1.5rem;
+  display:none;
+}
+.form-section.active{display:block;animation:fadeUp .3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.section-title{
+  font-family:'DM Serif Display',serif;
+  font-size:1.2rem;
+  font-weight:400;
+  color:var(--navy);
+  margin-bottom:1.4rem;
+  padding-bottom:.8rem;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.section-icon{
+  width:28px;height:28px;
+  background:var(--tag-bg);
+  border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;flex-shrink:0;
+}
+
+/* ─── Fields ─── */
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.field-row.triple{grid-template-columns:1fr 1fr 1fr}
+@media(max-width:520px){.field-row,.field-row.triple{grid-template-columns:1fr}}
+.field{margin-bottom:1.2rem}
+.field:last-child{margin-bottom:0}
+label{
+  display:block;
+  font-size:13px;
+  font-weight:500;
+  color:var(--text);
+  margin-bottom:5px;
+}
+label .req{color:var(--orange);margin-left:2px}
+label .hint{
+  font-weight:400;
+  color:var(--muted);
+  font-size:12px;
+  margin-left:6px;
+}
+input[type=text],input[type=email],input[type=tel],input[type=url],
+input[type=number],input[type=month],select,textarea{
+  width:100%;
+  padding:9px 12px;
+  border:1px solid var(--border);
+  border-radius:7px;
+  font-family:inherit;
+  font-size:14px;
+  color:var(--text);
+  background:#fff;
+  outline:none;
+  transition:border-color .15s,box-shadow .15s;
+  appearance:none;
+}
+input:focus,select:focus,textarea:focus{
+  border-color:var(--navy);
+  box-shadow:0 0 0 3px rgba(19,41,75,.09);
+}
+input::placeholder{color:#bbb}
+textarea{resize:vertical;min-height:80px}
+select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236b6b6b' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 10px center;
+  padding-right:28px;
+  cursor:pointer;
+}
+
+/* ─── Radio / Checkbox ─── */
+.radio-group,.check-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.radio-pill input,.check-pill input{display:none}
+.radio-pill label,.check-pill label{
+  padding:7px 14px;
+  border:1px solid var(--border);
+  border-radius:20px;
+  font-size:13px;
+  font-weight:400;
+  color:var(--muted);
+  cursor:pointer;
+  transition:all .15s;
+  user-select:none;
+}
+.radio-pill input:checked+label,.check-pill input:checked+label{
+  background:var(--navy);
+  border-color:var(--navy);
+  color:#fff;
+}
+
+/* ─── File Upload ─── */
+.upload-zone{
+  border:2px dashed var(--border);
+  border-radius:8px;
+  padding:1.5rem;
+  text-align:center;
+  cursor:pointer;
+  transition:border-color .15s,background .15s;
+  position:relative;
+}
+.upload-zone:hover{border-color:var(--navy);background:#f7f9fc}
+.upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%}
+.upload-icon{font-size:24px;margin-bottom:6px;display:block}
+.upload-label{font-size:13px;color:var(--muted)}
+.upload-label strong{color:var(--navy)}
+.upload-name{
+  font-size:13px;
+  color:var(--success);
+  margin-top:6px;
+  display:none;
+}
+
+/* ─── Autocomplete ─── */
+.autocomplete-wrap{position:relative}
+.autocomplete-list{
+  position:absolute;
+  top:100%;left:0;right:0;
+  background:#fff;
+  border:1px solid var(--border);
+  border-top:none;
+  border-radius:0 0 8px 8px;
+  max-height:220px;
+  overflow-y:auto;
+  z-index:200;
+  display:none;
+  box-shadow:0 8px 24px rgba(0,0,0,.08);
+}
+.autocomplete-list.open{display:block}
+.ac-item{
+  padding:9px 12px;
+  font-size:13px;
+  cursor:pointer;
+  border-bottom:1px solid #f5f5f5;
+  transition:background .1s;
+}
+.ac-item:last-child{border-bottom:none}
+.ac-item:hover,.ac-item.highlighted{background:var(--tag-bg)}
+.ac-category{
+  padding:6px 12px 3px;
+  font-size:11px;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  color:var(--muted);
+  background:#fafafa;
+  border-bottom:1px solid #f0f0f0;
+  pointer-events:none;
+}
+.ac-item .ac-sub{font-size:11px;color:var(--muted);margin-top:1px}
+
+/* ─── Tags (for industries) ─── */
+.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;min-height:8px}
+.tag{
+  background:var(--tag-bg);
+  color:var(--tag-text);
+  border:1px solid #c9d6ef;
+  border-radius:20px;
+  padding:4px 10px 4px 12px;
+  font-size:12px;
+  font-weight:500;
+  display:flex;align-items:center;gap:6px;
+  animation:popIn .15s ease;
+}
+@keyframes popIn{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+.tag-remove{
+  cursor:pointer;
+  color:var(--navy);
+  font-size:14px;
+  line-height:1;
+  opacity:.6;
+}
+.tag-remove:hover{opacity:1}
+
+/* ─── Navigation Buttons ─── */
+.nav-btns{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:2rem;
+  gap:1rem;
+}
+.btn{
+  padding:10px 24px;
+  border-radius:8px;
+  font-family:inherit;
+  font-size:14px;
+  font-weight:500;
+  cursor:pointer;
+  transition:all .15s;
+  border:none;
+  outline:none;
+}
+.btn-outline{
+  background:transparent;
+  border:1px solid var(--border);
+  color:var(--muted);
+}
+.btn-outline:hover{border-color:var(--navy);color:var(--navy)}
+.btn-primary{
+  background:var(--navy);
+  color:#fff;
+}
+.btn-primary:hover{background:var(--navy-light)}
+.btn-submit{
+  background:var(--orange);
+  color:#fff;
+  padding:12px 32px;
+}
+.btn-submit:hover{background:var(--orange-light)}
+.step-counter{font-size:12px;color:var(--muted)}
+
+/* ─── Success State ─── */
+.success-screen{
+  text-align:center;
+  padding:3rem 1rem;
+  display:none;
+}
+.success-icon{
+  width:64px;height:64px;
+  background:#e8f5ee;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 1.2rem;
+  font-size:28px;
+}
+.success-screen h2{
+  font-family:'DM Serif Display',serif;
+  font-size:1.6rem;
+  font-weight:400;
+  color:var(--navy);
+  margin-bottom:.6rem;
+}
+.success-screen p{color:var(--muted);max-width:380px;margin:0 auto}
+
+/* ─── Helper ─── */
+.note{font-size:12px;color:var(--muted);margin-top:4px}
+.divider{border:none;border-top:1px solid var(--border);margin:1.2rem 0}
+.optional-label{
+  display:inline-block;
+  font-size:11px;
+  background:#f3f3ef;
+  border-radius:4px;
+  padding:1px 6px;
+  color:var(--muted);
+  margin-left:6px;
+  font-weight:400;
+  font-style:italic;
+}
+.section-note{
+  background:#FFF7EE;
+  border:1px solid #FFD9A8;
+  border-radius:7px;
+  padding:10px 14px;
+  font-size:13px;
+  color:#7a4800;
+  margin-bottom:1.2rem;
+}
+.google-notice{
+  font-size:12px;
+  color:var(--muted);
+  text-align:center;
+  padding:1.5rem;
+  line-height:1.6;
+  border-top:1px solid var(--border);
+}
+</style>
+</head>
+<body>
+
+<!-- ─── Header ─── -->
+<div class="header">
+  <div class="header-badge">Illinois Business Consulting</div>
+  <h1>Alumni Expert Network</h1>
+  <p class="header-sub">Join our centralized directory and help shape the future of IBC. This form takes 2–3 minutes to complete.</p>
+  <div class="bullets">
+    <div class="bullet">Build alumni directory</div>
+    <div class="bullet">Mentor current members</div>
+    <div class="bullet">Share opportunities</div>
+    <div class="bullet">Stay connected</div>
+  </div>
+</div>
+
+<!-- ─── Progress Bar ─── -->
+<div class="progress-bar-wrap">
+  <div class="progress-steps">
+    <div class="prog-step active" data-step="0" onclick="goToStep(0)">Contact</div>
+    <div class="prog-step" data-step="1" onclick="goToStep(1)">Education</div>
+    <div class="prog-step" data-step="2" onclick="goToStep(2)">Career</div>
+    <div class="prog-step" data-step="3" onclick="goToStep(3)">Preferences</div>
+  </div>
+</div>
+
+<!-- ─── Form ─── -->
+<div class="form-wrap">
+<div class="google-notice">
+  The name, email, and photo associated with your Google account will be recorded when you upload files and submit this form.
+</div>
+
+<!-- STEP 0: Contact Info -->
+<div class="form-section active" id="step-0">
+  <div class="section-title"><div class="section-icon">👤</div>Contact Information</div>
+
+  <div class="field">
+    <label>Email <span class="req">*</span></label>
+    <input type="email" id="email" placeholder="you@example.com" required oninput="validateEmail(this)"/>
+    <div id="email-error" style="display:none;font-size:12px;color:var(--error);margin-top:4px">Please enter a valid email address (e.g., name@domain.com)</div>
+  </div>
+
+  <div class="field-row">
+    <div class="field">
+      <label>First Name <span class="req">*</span></label>
+      <input type="text" id="first_name" placeholder="Jane"/>
+    </div>
+    <div class="field">
+      <label>Last Name <span class="req">*</span></label>
+      <input type="text" id="last_name" placeholder="Smith"/>
+    </div>
+  </div>
+
+  <div class="field-row">
+    <div class="field">
+      <label>Phone Number <span class="optional-label">optional</span></label>
+      <input type="tel" id="phone" placeholder="+1 (555) 000-0000"/>
+    </div>
+    <div class="field">
+      <label>Time Zone <span class="req">*</span></label>
+      <select id="timezone">
+        <option value="" disabled selected>Select timezone</option>
+        <option>Central (CT)</option>
+        <option>Eastern (ET)</option>
+        <option>Mountain (MT)</option>
+        <option>Pacific (PT)</option>
+        <option>Alaska (AKT)</option>
+        <option>Hawaii-Aleutian (HAT)</option>
+        <option>Other</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>LinkedIn URL <span class="optional-label">optional</span></label>
+    <input type="url" id="linkedin" placeholder="https://linkedin.com/in/yourprofile"/>
+  </div>
+
+  <div class="field">
+    <label>Resume <span class="optional-label">optional — PDF, max 10 MB</span></label>
+    <div class="upload-zone" id="resume-zone">
+      <input type="file" accept=".pdf" id="resume-input" onchange="handleFile(event,'resume-zone','resume-name')"/>
+      <span class="upload-icon">📄</span>
+      <div class="upload-label"><strong>Click to upload</strong> or drag and drop</div>
+      <div class="upload-label" style="margin-top:4px;font-size:12px">PDF only · Max 10 MB</div>
+      <div class="upload-name" id="resume-name"></div>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <div></div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <span class="step-counter">Step 1 of 4</span>
+      <button class="btn btn-primary" onclick="nextStep(0)">Continue →</button>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 1: Education -->
+<div class="form-section" id="step-1">
+  <div class="section-title"><div class="section-icon">🎓</div>Education</div>
+
+  <div class="field-row">
+    <div class="field">
+      <label>Graduation Year <span class="req">*</span> <span class="hint">(most recent degree)</span></label>
+      <select id="grad_year">
+        <option value="" disabled selected>Select year</option>
+        <script>for(let y=new Date().getFullYear();y>=1970;y--){document.write(`<option>${y}</option>`)}</script>
+      </select>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Bachelor's Major <span class="req">*</span></label>
+    <select id="major_bs">
+      <option value="" disabled selected>Select your major</option>
+      <optgroup label="A">
+        <option>Accountancy, BS</option>
+        <option>Accountancy + Data Science, BS</option>
+        <option>Actuarial Science, BSLAS</option>
+        <option>Advertising, BS</option>
+        <option>Aerospace Engineering, BS</option>
+        <option>African American Studies, BALAS</option>
+        <option>Agricultural &amp; Biological Engineering, BS</option>
+        <option>Agricultural &amp; Consumer Economics, BS</option>
+        <option>Agricultural Leadership, Education, &amp; Communications, BS</option>
+        <option>Agronomy, BS</option>
+        <option>Animal Sciences, BS</option>
+        <option>Anthropology, BALAS</option>
+        <option>Architectural Studies, BS</option>
+        <option>Art &amp; Art History, BFA</option>
+        <option>Art Education, BFA</option>
+        <option>Art History, BALAS</option>
+        <option>Asian American Studies, BALAS</option>
+        <option>Astronomy, BSLAS</option>
+        <option>Astronomy + Data Science, BSLAS</option>
+        <option>Astrophysics, BSLAS</option>
+        <option>Atmospheric Sciences, BSLAS</option>
+      </optgroup>
+      <optgroup label="B">
+        <option>Biochemistry, BS</option>
+        <option>Bioengineering, BS</option>
+        <option>Brain &amp; Cognitive Science, BSLAS</option>
+        <option>Business + Data Science, BS</option>
+      </optgroup>
+      <optgroup label="C">
+        <option>Chemical Engineering, BS</option>
+        <option>Chemical Engineering + Data Science, BS</option>
+        <option>Chemistry, BS</option>
+        <option>Chemistry, BSLAS</option>
+        <option>Civil Engineering, BS</option>
+        <option>Classics, BALAS</option>
+        <option>Communication, BALAS</option>
+        <option>Community Health, BS</option>
+        <option>Comparative &amp; World Literature, BALAS</option>
+        <option>Computer Engineering, BS</option>
+        <option>Computer Science, BS</option>
+        <option>Computer Science + Advertising, BS</option>
+        <option>Computer Science + Animal Sciences, BS</option>
+        <option>Computer Science + Anthropology, BSLAS</option>
+        <option>Computer Science + Astronomy, BSLAS</option>
+        <option>Computer Science + Bioengineering, BS</option>
+        <option>Computer Science + Chemistry, BSLAS</option>
+        <option>Computer Science + Crop Sciences, BS</option>
+        <option>Computer Science + Economics, BSLAS</option>
+        <option>Computer Science + Education, BS</option>
+        <option>Computer Science + Geography &amp; GIS, BSLAS</option>
+        <option>Computer Science + Linguistics, BSLAS</option>
+        <option>Computer Science + Music, BS</option>
+        <option>Computer Science + Philosophy, BSLAS</option>
+        <option>Computer Science + Physics, BS</option>
+        <option>Creative Writing, BALAS</option>
+        <option>Crop Sciences, BS</option>
+      </optgroup>
+      <optgroup label="D">
+        <option>Dance, BA</option>
+        <option>Dance, BFA</option>
+        <option>Dietetics and Nutrition, BS</option>
+      </optgroup>
+      <optgroup label="E">
+        <option>Early Childhood Education, BS</option>
+        <option>Earth, Society, &amp; Environmental Sustainability, BSLAS</option>
+        <option>East Asian Languages &amp; Cultures, BALAS</option>
+        <option>Econometrics &amp; Quantitative Economics, BSLAS</option>
+        <option>Economics, BALAS</option>
+        <option>Electrical Engineering, BS</option>
+        <option>Elementary Education, BS</option>
+        <option>Engineering Mechanics, BS</option>
+        <option>Engineering Technology &amp; Management for Agricultural Systems, BS</option>
+        <option>English, BALAS</option>
+        <option>Environmental Engineering, BS</option>
+        <option>Environmental Sustainability, BSLAS</option>
+      </optgroup>
+      <optgroup label="F">
+        <option>Finance, BS</option>
+        <option>Finance + Data Science, BS</option>
+        <option>Food Science, BS</option>
+        <option>French, BALAS</option>
+        <option>French (Teaching), BA</option>
+      </optgroup>
+      <optgroup label="G">
+        <option>Gender &amp; Women's Studies, BALAS</option>
+        <option>Geography &amp; Geographic Information Science, BALAS</option>
+        <option>Geography &amp; Geographic Information Science, BSLAS</option>
+        <option>Geology, BS</option>
+        <option>Geology, BSLAS</option>
+        <option>Germanic Studies, BALAS</option>
+        <option>German (Teaching), BA</option>
+        <option>Global Studies, BALAS</option>
+        <option>Graphic Design, BFA</option>
+      </optgroup>
+      <optgroup label="H">
+        <option>History, BALAS</option>
+        <option>Hospitality Management, BS</option>
+        <option>Human Development &amp; Family Studies, BS</option>
+      </optgroup>
+      <optgroup label="I">
+        <option>Individual Plans of Study, BALAS or BSLAS</option>
+        <option>Industrial Design, BFA</option>
+        <option>Industrial Engineering, BS</option>
+        <option>Information Sciences, BS</option>
+        <option>Information Sciences + Data Science, BS</option>
+        <option>Information Systems, BS</option>
+        <option>Innovation, Leadership &amp; Engineering Entrepreneurship, BS</option>
+        <option>Integrative Biology, BSLAS</option>
+        <option>Interdisciplinary Health Sciences, BS</option>
+        <option>Interdisciplinary Studies, BALAS</option>
+        <option>Italian, BALAS</option>
+      </optgroup>
+      <optgroup label="J">
+        <option>Jazz Performance, BMUS</option>
+        <option>Journalism, BS</option>
+      </optgroup>
+      <optgroup label="K">
+        <option>Kinesiology, BS</option>
+      </optgroup>
+      <optgroup label="L">
+        <option>Landscape Architecture, BLA</option>
+        <option>Latin American Studies, BALAS</option>
+        <option>Latina/Latino Studies, BALAS</option>
+        <option>Learning &amp; Education Studies, BS</option>
+        <option>Liberal Studies, BLS</option>
+        <option>Linguistics, BALAS</option>
+        <option>Linguistics and Teaching English as a Second Language (TESL), BALAS</option>
+        <option>Lyric Theatre, BMA</option>
+      </optgroup>
+      <optgroup label="M">
+        <option>Management, BS</option>
+        <option>Marketing, BS</option>
+        <option>Materials Science &amp; Engineering, BS</option>
+        <option>Materials Science &amp; Engineering + Data Science, BS</option>
+        <option>Mathematics, BSLAS</option>
+        <option>Mathematics &amp; Computer Science, BSLAS</option>
+        <option>Mechanical Engineering, BS</option>
+        <option>Media, BA</option>
+        <option>Media &amp; Cinema Studies, BS</option>
+        <option>Middle Grades Education, BS</option>
+        <option>Molecular &amp; Cellular Biology, BSLAS</option>
+        <option>Molecular and Cellular Biology + Data Science, BSLAS</option>
+        <option>Music, BA</option>
+        <option>Music Composition, BMUS</option>
+        <option>Music Education, BME</option>
+        <option>Musicology, BMUS</option>
+      </optgroup>
+      <optgroup label="N">
+        <option>Natural Resources &amp; Environmental Sciences, BS</option>
+        <option>Neural Engineering, BS</option>
+        <option>Neuroscience, BSLAS</option>
+        <option>Nuclear, Plasma, &amp; Radiological Engineering, BS</option>
+        <option>Nuclear, Plasma, and Radiological Engineering + Data Science, BS</option>
+        <option>Nutrition and Health, BS</option>
+      </optgroup>
+      <optgroup label="O">
+        <option>Operations Management, BS</option>
+      </optgroup>
+      <optgroup label="P">
+        <option>Philosophy, BALAS</option>
+        <option>Physics, BS</option>
+        <option>Plant Biotechnology, BS</option>
+        <option>Political Science, BALAS</option>
+        <option>Portuguese, BALAS</option>
+        <option>Psychology, BSLAS</option>
+      </optgroup>
+      <optgroup label="R">
+        <option>Recreation, Sport &amp; Tourism, BS</option>
+        <option>Religion, BALAS</option>
+        <option>Russian, East European, &amp; Eurasian Studies, BALAS</option>
+      </optgroup>
+      <optgroup label="S">
+        <option>Secondary Education, BS</option>
+        <option>Slavic Studies, BALAS</option>
+        <option>Social Work, BSW</option>
+        <option>Sociology, BALAS</option>
+        <option>Spanish, BALAS</option>
+        <option>Spanish (Teaching), BA</option>
+        <option>Special Education, BS</option>
+        <option>Speech &amp; Hearing Science, BS</option>
+        <option>Sports Media, BA</option>
+        <option>Statistics, BSLAS</option>
+        <option>Statistics &amp; Computer Science, BSLAS</option>
+        <option>Strategy, Innovation and Entrepreneurship, BS</option>
+        <option>Studio Art, BASA</option>
+        <option>Studio Art, BFASA</option>
+        <option>Supply Chain Management, BS</option>
+        <option>Sustainability in Food &amp; Environmental Systems, BS</option>
+        <option>Sustainable Design, BS</option>
+        <option>Systems Engineering and Design, BS</option>
+      </optgroup>
+      <optgroup label="T">
+        <option>Teaching of French, BA</option>
+        <option>Teaching of German, BA</option>
+        <option>Teaching of Spanish, BA</option>
+        <option>Theatre, BFA</option>
+      </optgroup>
+      <optgroup label="U">
+        <option>Urban Studies &amp; Planning, BA</option>
+      </optgroup>
+      <optgroup label="V">
+        <option>Voice, BMUS</option>
+      </optgroup>
+      <optgroup label="Other">
+        <option>Other / Not Listed</option>
+      </optgroup>
+    </select>
+    <div class="note">Select your primary bachelor's major. If you had multiple, list additional ones below.</div>
+  </div>
+
+  <div class="field">
+    <label>Additional Major / Minor <span class="optional-label">if applicable</span></label>
+    <input type="text" id="major_bs_extra" placeholder="e.g. Statistics minor, second major"/>
+  </div>
+
+  <div class="field">
+    <label>Master's Major <span class="optional-label">if applicable</span></label>
+    <input type="text" id="major_ms" placeholder="e.g. Business Administration"/>
+  </div>
+
+  <div class="field">
+    <label>PhD Major <span class="optional-label">if applicable</span></label>
+    <input type="text" id="major_phd" placeholder="e.g. Economics"/>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-outline" onclick="prevStep(1)">← Back</button>
+    <div style="display:flex;align-items:center;gap:12px">
+      <span class="step-counter">Step 2 of 4</span>
+      <button class="btn btn-primary" onclick="nextStep(1)">Continue →</button>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 2: Career -->
+<div class="form-section" id="step-2">
+  <div class="section-title"><div class="section-icon">💼</div>Career</div>
+
+  <!-- Current Company -->
+  <div class="field">
+    <label>Current Company <span class="optional-label">optional</span></label>
+    <div class="autocomplete-wrap" id="company-wrap">
+      <input type="text" id="company-input" placeholder="Search company name..." autocomplete="off" oninput="acSearch('company')" onfocus="acSearch('company')" onkeydown="acKeyNav(event,'company')"/>
+      <div class="autocomplete-list" id="company-list"></div>
+    </div>
+    <p class="note">Don't see your company? Type it in full and press Enter to add it.</p>
+  </div>
+
+  <!-- Current Role -->
+  <div class="field">
+    <label>Current Role Title <span class="req">*</span></label>
+    <div class="autocomplete-wrap" id="role-wrap">
+      <input type="text" id="role-input" placeholder="Search or type your role..." autocomplete="off" oninput="acSearch('role')" onfocus="acSearch('role')" onkeydown="acKeyNav(event,'role')"/>
+      <div class="autocomplete-list" id="role-list"></div>
+    </div>
+    <p class="note">Roles are grouped by function. Type your title and select from the dropdown or press Enter for a custom entry.</p>
+  </div>
+
+  <!-- Start Date -->
+  <div class="field">
+    <label>Start Date of Current Role <span class="req">*</span></label>
+    <input type="month" id="role_start" max=""/>
+    <div class="note">Month and year only</div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-outline" onclick="prevStep(2)">← Back</button>
+    <div style="display:flex;align-items:center;gap:12px">
+      <span class="step-counter">Step 3 of 4</span>
+      <button class="btn btn-primary" onclick="nextStep(2)">Continue →</button>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 3: Preferences -->
+<div class="form-section" id="step-3">
+  <div class="section-title"><div class="section-icon">⚙️</div>Preferences & Mentorship</div>
+
+  <div class="section-note">
+    Your responses will only be used internally by IBC to facilitate connections and mentorship. We will never share your information outside the club.
+  </div>
+
+  <div class="field">
+    <label>Preferred Contact Method <span class="req">*</span></label>
+    <div class="radio-group">
+      <div class="radio-pill"><input type="radio" name="contact_pref" id="c_email" value="Email"/><label for="c_email">📧 Email</label></div>
+      <div class="radio-pill"><input type="radio" name="contact_pref" id="c_phone" value="Phone"/><label for="c_phone">📱 Phone</label></div>
+      <div class="radio-pill"><input type="radio" name="contact_pref" id="c_linkedin" value="LinkedIn"/><label for="c_linkedin">🔗 LinkedIn</label></div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Open to mentoring current IBC members? <span class="optional-label">optional</span></label>
+    <div class="radio-group">
+      <div class="radio-pill"><input type="radio" name="mentor" id="m_yes" value="Yes"/><label for="m_yes">Yes, happy to help</label></div>
+      <div class="radio-pill"><input type="radio" name="mentor" id="m_limited" value="Limited"/><label for="m_limited">Occasionally</label></div>
+      <div class="radio-pill"><input type="radio" name="mentor" id="m_no" value="No"/><label for="m_no">Not at this time</label></div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Areas you're comfortable advising on <span class="optional-label">optional</span></label>
+    <div class="check-group" id="advise-areas">
+      <div class="check-pill"><input type="checkbox" id="adv_resume" value="Resume Review"/><label for="adv_resume">Resume Review</label></div>
+      <div class="check-pill"><input type="checkbox" id="adv_interview" value="Interview Prep"/><label for="adv_interview">Interview Prep</label></div>
+      <div class="check-pill"><input type="checkbox" id="adv_career" value="Career Direction"/><label for="adv_career">Career Direction</label></div>
+      <div class="check-pill"><input type="checkbox" id="adv_industry" value="Industry Insights"/><label for="adv_industry">Industry Insights</label></div>
+      <div class="check-pill"><input type="checkbox" id="adv_networking" value="Networking"/><label for="adv_networking">Networking</label></div>
+      <div class="check-pill"><input type="checkbox" id="adv_coffee" value="Coffee Chats"/><label for="adv_coffee">Coffee Chats</label></div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Anything else you'd like to share? <span class="optional-label">optional</span></label>
+    <textarea id="extra" placeholder="E.g. areas of expertise, best times to connect, specific industries you can speak to..."></textarea>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-outline" onclick="prevStep(3)">← Back</button>
+    <div style="display:flex;align-items:center;gap:12px">
+      <span class="step-counter">Step 4 of 4</span>
+      <button class="btn btn-submit" onclick="submitForm()">Submit →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Success -->
+<div class="success-screen" id="success">
+  <div class="success-icon">✓</div>
+  <h2>You're in the network!</h2>
+  <p>Thank you for joining the IBC Alumni Expert Network. We'll be in touch with next steps and platform access soon.</p>
+</div>
+
+</div><!-- /form-wrap -->
+
+<script>
+// ─── DATA ───────────────────────────────────────────────
+const COMPANIES=[
+  "3Com Corp","3M Company","A.G. Edwards Inc.","Abbott Laboratories",
+  "Abercrombie & Fitch Co.","ABM Industries Incorporated","Ace Hardware Corporation",
+  "Adams Resources & Energy, Inc.","Adobe Systems Incorporated","Advance Auto Parts, Inc.",
+  "Advanced Micro Devices, Inc.","The AES Corporation","Aetna Inc.",
+  "Affiliated Computer Services, Inc.","AFLAC Incorporated","AGCO Corporation",
+  "Agilent Technologies, Inc.","Air Products and Chemicals, Inc.","Airgas, Inc.",
+  "AK Steel Holding Corporation","Alaska Air Group, Inc.","Alberto-Culver Company",
+  "Albertson's, Inc.","Alcoa Inc.","Alleghany Corporation","Allegheny Energy, Inc.",
+  "Allergan, Inc.","Alliant Energy Corporation","Allied Waste Industries, Inc.",
+  "The Allstate Corporation","ALLTEL Corporation","Amazon.com, Inc.",
+  "Ameren Corporation","American Electric Power Company, Inc.","American Express Company",
+  "American Financial Group, Inc.","American International Group, Inc.",
+  "AmerisourceBergen Corporation","Amgen Inc.","AMR Corporation","Anadarko Petroleum Corporation",
+  "Analog Devices, Inc.","Anheuser-Busch Companies, Inc.","Anixter International Inc.",
+  "Anthem, Inc.","AOL Time Warner Inc.","Aon Corporation","Apache Corporation",
+  "Apple Computer, Inc.","Applied Materials, Inc.","ARAMARK Corporation",
+  "Archer Daniels Midland Company","Armstrong Holdings, Inc.","Arrow Electronics, Inc.",
+  "Ashland Inc.","AT&T Corp.","Automatic Data Processing, Inc.","AutoNation, Inc.",
+  "AutoZone, Inc.","Avery Dennison Corporation","Avnet, Inc.","Avon Products, Inc.",
+  "Baker Hughes Incorporated","Ball Corporation","Bank of America Corporation",
+  "The Bank of New York Company, Inc.","Bank One Corporation","Barnes & Noble, Inc.",
+  "Bausch & Lomb Incorporated","Baxter International Inc.","BB&T Corporation",
+  "The Bear Stearns Companies Inc.","Becton, Dickinson and Company","Bed Bath & Beyond Inc.",
+  "BellSouth Corporation","Bemis Company, Inc.","Berkshire Hathaway Inc.",
+  "Best Buy Co., Inc.","Big Lots, Inc.","The Boeing Company","Boise Cascade Corporation",
+  "BorgWarner Inc.","Boston Scientific Corporation","Bristol-Myers Squibb Company",
+  "Brown-Forman Corporation","Brunswick Corporation",
+  "Burlington Northern Santa Fe Corporation","Burlington Resources Inc.",
+  "C. H. Robinson Worldwide Inc.","Cablevision Systems Corp","Campbell Soup Co.",
+  "Capital One Financial Corp.","Cardinal Health Inc.","Carlisle Cos. Inc.",
+  "Caterpillar Inc.","CDW Computer Centers Inc.","Cendant Corp",
+  "Centex Corp.","CenturyTel Inc.","Charles Schwab Corp.","Charter Communications Inc.",
+  "ChevronTexaco Corp.","Chubb Corp","Cigna Corp","Cincinnati Financial Corp.",
+  "Cintas Corp.","Circuit City Stores Inc.","Cisco Systems Inc.","Citigroup, Inc.",
+  "Clear Channel Communications Inc.","The Clorox Co.","CMS Energy Corp.",
+  "Coca-Cola Co.","Coca-Cola Enterprises Inc.","Colgate-Palmolive Co.",
+  "Comcast Corp.","Comerica Inc.","Commercial Metals Co.","Computer Sciences Corp.",
+  "ConAgra Foods Inc.","Conoco Inc.","Conseco Inc.","Consolidated Edison Inc.",
+  "Continental Airlines Inc.","Convergys Corp.","Cooper Industries Ltd.",
+  "Corning Inc.","Costco Wholesale Corp.","Coventry Health Care Inc.",
+  "Cox Communications Inc.","Crown Cork & Seal Co. Inc.","CSX Corp.","Cummins Inc.",
+  "CVS Corp.","D.R. Horton Inc.","Dana Corporation","Danaher Corporation",
+  "Darden Restaurants Inc.","Dean Foods Company","Deere & Company","Dell Computer Corporation",
+  "Delphi Corp.","Delta Air Lines Inc.","Devon Energy Corporation",
+  "Dominion Resources, Inc.","Dover Corporation, Inc.","Dow Chemical Company",
+  "Dow Jones & Company, Inc.","DTE Energy Co.","E.I. Du Pont de Nemours and Company",
+  "Duke Energy Corp","Dun & Bradstreet Inc.","Dynegy Inc.",
+  "Eastman Chemical Company","Eastman Kodak Company","Eaton Corporation",
+  "Ecolab Inc.","Edison International","El Paso Corporation","Electronic Arts Inc.",
+  "Electronic Data Systems Corp.","Eli Lilly and Company","EMC Corporation",
+  "Emerson Electric Co.","Equifax Inc.","Equity Office Properties Trust",
+  "Estee Lauder Companies Inc.","Exelon Corporation","ExxonMobil Corporation",
+  "Family Dollar Stores Inc.","Federal Mogul Corp.","Federated Department Stores Inc.",
+  "Federal Express Corp.","Fifth Third Bancorp","First Data Corp.",
+  "FirstEnergy Corp.","Fiserv Inc.","FleetBoston Financial Co.",
+  "Fleetwood Enterprises Inc.","Fleming Companies Inc.","Flowers Foods Inc.",
+  "Fluor Corp","FMC Corp","Ford Motor Co","Forest Laboratories Inc.",
+  "Fortune Brands Inc.","FPL Group Inc.","Franklin Resources Inc.",
+  "Freeport McMoran Copper & Gold Inc.","Gannett Co., Inc.","Gap Inc.",
+  "Gateway Inc.","GATX Corporation","General Cable Corporation",
+  "General Dynamics Corporation","General Electric Company","General Mills Inc.",
+  "General Motors Corporation","Genzyme Corporation","Georgia-Pacific Corporation",
+  "Gillette Company","Goldman Sachs Group Inc.","Goodrich Corporation",
+  "The Goodyear Tire & Rubber Company","Granite Construction Incorporated",
+  "Great Plains Energy Inc.","H&R Block Inc.","H.J. Heinz Company",
+  "Halliburton Co.","Harley-Davidson Inc.","Harman International Industries Inc.",
+  "Harrah's Entertainment Inc.","Harris Corp.","Hartford Financial Services Group Inc.",
+  "Hasbro Inc.","HCA Inc.","Health Net Inc.","Henry Schein Inc.",
+  "Hershey Foods Corp.","Hewlett-Packard Company","Hilton Hotels Corp.",
+  "Home Depot Inc.","Honeywell International Inc.","Hormel Foods Corp.",
+  "Host Marriott Corp.","Household International Corp.","Hubbell Inc.",
+  "Humana Inc.","Huntington Bancshares Inc.","Illinois Tool Works Inc.",
+  "Ingram Micro Inc.","Intel Corporation","International Paper Co.",
+  "Interpublic Group of Companies Inc.","International Business Machines Corp.",
+  "International Flavors & Fragrances Inc.","Intuit Inc.","ITT Industries Inc.",
+  "J.B. Hunt Transport Services Inc.","J.C. Penny Co.","J.P. Morgan Chase & Co.",
+  "Jacobs Engineering Group Inc.","Jefferson-Pilot Co.",
+  "John Hancock Financial Services Inc.","Johnson & Johnson","Johnson Controls Inc.",
+  "KB Home","Kellogg Company","Kellwood Company","Kelly Services Inc.",
+  "Kerr-McGee Corporation","KeyCorp","Kimberly-Clark Corporation",
+  "KLA-Tencor Corporation","K-Mart Corp.","Kohl's Corp.","KPMG Consulting Inc.",
+  "Kroger Co.","L-3 Communications Holdings Inc.",
+  "Laboratory Corporation of America Holdings","Lam Research Corporation",
+  "Landstar System Inc.","Lear Corporation","Legg Mason Inc.","Leggett & Platt Inc.",
+  "Lehman Brothers Holdings Inc.","Lennar Corporation","Level 3 Communications Inc.",
+  "Levi Strauss & Co.","Lexmark International Inc.","Lincoln National Corporation",
+  "Lockheed Martin Corporation","Loews Corporation","Louisiana-Pacific Corporation",
+  "Lowe's Companies Inc.","Lucent Technologies Inc.","M & T Bank Corporation",
+  "Manpower Inc.","Marathon Oil Corporation","Markel Corporation",
+  "Marriott International Inc.","Marsh & McLennan Companies Inc.",
+  "Marshall & Ilsley Corporation","Martin Marietta Materials Inc.","Masco Corporation",
+  "Mattel Inc.","Maxim Integrated Products Inc.","The May Department Stores Company",
+  "Maytag Corporation","MBNA Corporation","McCormick & Company Incorporated",
+  "McDonald's Corporation","The McGraw-Hill Companies Inc.","McKesson Corporation",
+  "MeadWestvaco Corporation","Medtronic Inc.","Mellon Financial Corporation",
+  "Merck & Co., Inc.","Merrill Lynch & Co. Inc.","MetLife Inc.",
+  "MGIC Investment Corporation","Microsoft Corporation",
+  "Morgan Stanley Dean Witter & Co.","Motorola Inc.","Murphy Oil Corporation",
+  "Nabors Industries Inc.","Nash Finch Company","National City Corp.",
+  "National Commerce Financial Corporation","National Semiconductor Corporation",
+  "Navistar International Corporation","NCR Corporation",
+  "New York Times Company","Newell Rubbermaid Inc.","Newmont Mining Corporation",
+  "Nextel Communications Inc.","Nike Inc.","NiSource Inc.","Nordstrom Inc.",
+  "Norfolk Southern Corporation","Northern Trust Corporation",
+  "Northrop Grumman Corporation","Nucor Corp.","Nvidia Corp.",
+  "Occidental Petroleum Corp.","Office Depot Inc.","OfficeMax Inc.",
+  "Oracle Corp.","Owens-Illinois Inc.","Paccar Inc.","Packaging Corp. of America",
+  "Pall Corp.","Parker Hannifin Corp.","Paychex Inc.","PepsiCo Inc.",
+  "PerkinElmer Inc.","Pfizer Inc.","Pacific Gas & Electric Corp.","Pharmacia Corp.",
+  "Phelps Dodge Corp.","Philip Morris Companies Inc.","Phillips Petroleum Co.",
+  "Pitney Bowes Inc.","PNC Financial Services Group Inc.","PPG Industries Inc.",
+  "PPL Corp.","Praxair Inc.","Precision Castparts Corp.","Principal Financial Group Inc.",
+  "Procter & Gamble Co.","Progress Energy Inc.","Progressive Corporation",
+  "Prudential Financial Inc.","Public Service Enterprise Group Inc.",
+  "Publix Super Markets Inc.","Pulte Homes Inc.","Qualcomm Inc.",
+  "Quanta Services Inc.","Quest Diagnostics Inc.","Qwest Communications Intl Inc.",
+  "R.J. Reynolds Tobacco Company","R.R. Donnelley & Sons Company",
+  "Radio Shack Corporation","Raymond James Financial Inc.","Raytheon Company",
+  "Reebok International Ltd.","Regions Financial Corp.","Reliant Energy Inc.",
+  "Republic Services Inc.","Rite Aid Corp.","Rockwell Automation Inc.",
+  "Rockwell Collins Inc.","Rohm & Haas Co.","Ross Stores Inc.","Ryder System Inc.",
+  "Ryland Group Inc.","Sabre Holdings Corp.","Safeco Corp.","Safeway Inc.",
+  "Sara Lee Corp.","SBC Communications Inc.","Schering-Plough Corp.",
+  "Science Applications Intl. Inc.","Sears Roebuck & Co.","Sempra Energy",
+  "Service Corp. International","Shaw Group Inc.","Sherwin-Williams Company",
+  "Siebel Systems Inc.","Simon Property Group Inc.","SLM Corporation",
+  "Smith International Inc.","Smithfield Foods Inc.",
+  "Smurfit-Stone Container Corp.","Snap-On Inc.","Solectron Corp.",
+  "Sonic Automotive Inc.","Southern Company","Southwest Airlines Co.",
+  "Sovereign Bancorp Inc.","Sprint Corp.","SPX Corp.","St. Jude Medical Inc.",
+  "Stanley Works","Staples Inc.","Starbucks Corp.",
+  "Starwood Hotels & Resorts Worldwide Inc.","State Street Corp.","Steelcase Inc.",
+  "Stryker Corp.","Sun Microsystems Inc.","SunGard Data Systems Inc.",
+  "Sunoco Inc.","SunTrust Banks Inc.","Supervalu Inc.","Swift Transportation, Co., Inc.",
+  "Sysco Corp.","Target Corp.","TECO Energy Inc.","Texas Instruments Incorporated",
+  "Textron Inc.","Tiffany & Co.","Timken Company","TJX Companies Inc.",
+  "Toll Brothers Inc.","Torchmark Corporation","Toys 'R' Us Inc.",
+  "Transocean Inc.","Tribune Company","Trinity Industries Inc.",
+  "TRW Inc.","TXU Corp.","Tyson Foods Inc.","U.S. Bancorp","UAL Corporation",
+  "Union Pacific Corporation","Unisys Corporation","United Auto Group Inc.",
+  "United Parcel Service Inc.","United Technologies Corporation",
+  "UnitedHealth Group Incorporated","Universal Corporation",
+  "Universal Health Services Inc.","Unocal Corporation","UnumProvident Corporation",
+  "URS Corporation","US Airways Group Inc.","USG Corporation","Valero Energy Corporation",
+  "Valspar Corporation","Vectren Corporation","Verizon Communications Inc.",
+  "VF Corporation","Viacom Inc.","Vulcan Materials Company",
+  "W.R. Berkley Corporation","W.W. Grainger Inc.","Wachovia Corporation",
+  "Walgreen Co.","Wal-Mart Stores Inc.","Walt Disney Co.",
+  "Washington Mutual Inc.","Washington Post Co.","Waste Management Inc.",
+  "Weatherford International Inc.","Wellpoint Health Networks Inc.",
+  "Wells Fargo & Company","Wendy's International Inc.","Werner Enterprises Inc.",
+  "Western Digital Inc.","Weyerhauser Company","Whirlpool Corporation",
+  "Whole Foods Market Inc.","Williams Companies Inc.","Williams Sonoma Inc.",
+  "Winn Dixie Stores Inc.","Wisconsin Energy Corporation","Wm Wrigley Jr Company",
+  "World Fuel Services Corporation","WorldCom Inc.","Worthington Industries Inc.",
+  "Wyeth","Xerox Corp.","Xilinx Inc.","Yellow Corporation",
+  "York International Corp.","Yum Brands Inc.","Zale Corporation",
+  "Zions Bancorporation","Other (type your company)"
+];
+
+const ROLES={
+  "Aerospace & Aviation Engineering":[
+    "Aerospace Engineers","Aerodynamics Engineer","Aeronautical Engineer",
+    "Aircraft Design Engineer","Astronautical Engineer"
+  ],
+  "Civil & Structural Engineering":[
+    "Civil Engineers","Architectural Engineer","Bridge Engineer"
+  ],
+  "Electrical & Electronics Engineering":[
+    "Electrical and Electronics Engineers","Antenna Engineer","Broadcast Engineer"
+  ],
+  "Mechanical & Industrial Engineering":[
+    "Mechanical Engineers","Industrial Engineers","Auto Research Engineer","Packaging Engineer"
+  ],
+  "Chemical & Environmental Engineering":[
+    "Chemical Engineers","Environmental Engineers","Absorption and Adsorption Engineer",
+    "Air Pollution Control Engineer","Oxidation Engineer"
+  ],
+  "Bioengineering & Specialized Fields":[
+    "Bioengineers and Biomedical Engineers","Agricultural Engineers",
+    "Mining and Geological Engineers","Nuclear Engineers"
+  ],
+  "Financial Services & Accounting":[
+    "Accountants and Auditors","Financial Managers","Actuaries","Budget Analysts","Financial Examiners"
+  ],
+  "Management & Administration":[
+    "Administrative Services and Facilities Managers","Top Executives","Management Analysts","Project Management Specialists"
+  ],
+  "Marketing, Sales & Promotions":[
+    "Advertising, Promotions, and Marketing Managers","Market Research Analysts",
+    "Advertising Sales Agents","Wholesale and Manufacturing Sales Representatives"
+  ],
+  "Human Resources & Specialized Operations":[
+    "Human Resources Specialists","Compensation, Benefits, and Job Analysis Specialists",
+    "Training and Development Managers","Purchasing Managers, Buyers, and Purchasing Agents"
+  ]
+};
+
+// ─── STATE ───────────────────────────────────────────────
+let currentStep=0;
+let selectedCompany='';
+let selectedRole='';
+
+// ─── STEP NAVIGATION ─────────────────────────────────────
+function goToStep(n){
+  if(n>currentStep) return; // can only go back
+  currentStep=n;
+  updateUI();
+}
+function nextStep(from){
+  if(!validateStep(from)) return;
+  currentStep=from+1;
+  updateUI();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function prevStep(from){
+  currentStep=from-1;
+  updateUI();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function updateUI(){
+  document.querySelectorAll('.form-section').forEach((s,i)=>{
+    s.classList.toggle('active',i===currentStep);
+  });
+  document.querySelectorAll('.prog-step').forEach((s,i)=>{
+    s.classList.remove('active','done');
+    if(i===currentStep) s.classList.add('active');
+    else if(i<currentStep) s.classList.add('done');
+  });
+}
+
+function validateStep(step){
+  if(step===0){
+    if(!v('email')||!v('first_name')||!v('last_name')||!v('timezone')){
+      alert('Please fill in all required fields (Email, First Name, Last Name, Time Zone).');
+      return false;
+    }
+    const emailVal=document.getElementById('email').value.trim();
+    const emailOk=/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(emailVal);
+    if(!emailOk){
+      alert('Please enter a valid email address (e.g., name@domain.com).');
+      document.getElementById('email').focus();
+      return false;
+    }
+  }
+  if(step===1){
+    if(!v('grad_year')||!v('major_bs')){
+      alert('Please fill in your graduation year and Bachelor\'s major(s).');
+      return false;
+    }
+  }
+  if(step===2){
+    if(!v('role-input')||!v('role_start')){
+      alert('Please fill in your current role and start date.');
+      return false;
+    }
+  }
+  if(step===3){
+    if(!document.querySelector('input[name=contact_pref]:checked')){
+      alert('Please select a preferred contact method.');
+      return false;
+    }
+  }
+  return true;
+}
+function v(id){
+  const el=document.getElementById(id);
+  return el&&el.value.trim()!=='';
+}
+
+function submitForm(){
+  if(!validateStep(3)) return;
+  document.querySelectorAll('.form-section').forEach(s=>s.style.display='none');
+  document.querySelector('.progress-bar-wrap').style.display='none';
+  document.getElementById('success').style.display='block';
+  console.log('Form data:',collectData());
+}
+function collectData(){
+  return{
+    email:document.getElementById('email').value,
+    first_name:document.getElementById('first_name').value,
+    last_name:document.getElementById('last_name').value,
+    phone:document.getElementById('phone').value,
+    timezone:document.getElementById('timezone').value,
+    linkedin:document.getElementById('linkedin').value,
+    grad_year:document.getElementById('grad_year').value,
+    major_bs:document.getElementById('major_bs').value,
+    major_bs_extra:document.getElementById('major_bs_extra').value,
+    major_ms:document.getElementById('major_ms').value,
+    major_phd:document.getElementById('major_phd').value,
+    company:selectedCompany||document.getElementById('company-input').value,
+    role:selectedRole||document.getElementById('role-input').value,
+    role_start:document.getElementById('role_start').value,
+    contact_pref:document.querySelector('input[name=contact_pref]:checked')?.value,
+    mentor:document.querySelector('input[name=mentor]:checked')?.value,
+    advise:[...document.querySelectorAll('#advise-areas input:checked')].map(i=>i.value),
+    extra:document.getElementById('extra').value
+  };
+}
+
+// ─── FILE UPLOAD ─────────────────────────────────────────
+function handleFile(event,zoneId,nameId){
+  const file=event.target.files[0];
+  if(!file) return;
+  if(file.size>10*1024*1024){alert('File exceeds 10 MB limit.');event.target.value='';return;}
+  const nameEl=document.getElementById(nameId);
+  nameEl.textContent='✓ '+file.name;
+  nameEl.style.display='block';
+  document.querySelector('#'+zoneId+' .upload-label').style.display='none';
+}
+
+// ─── AUTOCOMPLETE ENGINE ─────────────────────────────────
+const acState={company:{idx:-1},role:{idx:-1}};
+
+function acSearch(type){
+  const input=document.getElementById(type+'-input');
+  const list=document.getElementById(type+'-list');
+  const q=input.value.toLowerCase().trim();
+  let items=buildItems(type,q);
+  renderList(list,items,type);
+  acState[type].idx=-1;
+}
+
+function buildItems(type,q){
+  if(type==='company'){
+    const matches=COMPANIES.filter(c=>c.toLowerCase().includes(q));
+    let res=matches.slice(0,12).map(c=>({label:c,value:c}));
+    if(q&&!COMPANIES.find(c=>c.toLowerCase()===q)){
+      res.push({label:`Add "${input_val('company-input')}"`,value:input_val('company-input'),custom:true});
+    }
+    return res;
+  }
+  if(type==='role'){
+    let res=[];
+    for(const[cat,roles] of Object.entries(ROLES)){
+      const matched=roles.filter(r=>r.toLowerCase().includes(q));
+      if(matched.length>0){
+        res.push({category:cat});
+        matched.slice(0,4).forEach(r=>res.push({label:r,value:r,cat}));
+      }
+    }
+    if(q&&res.filter(r=>!r.category).length===0){
+      res.push({label:`Use "${input_val('role-input')}"`,value:input_val('role-input'),custom:true});
+    }
+    return res.slice(0,30);
+  }
+  return [];
+}
+
+function input_val(id){return document.getElementById(id).value}
+
+function renderList(list,items,type){
+  if(items.length===0){list.classList.remove('open');list.innerHTML='';return;}
+  list.innerHTML=items.map((item,i)=>{
+    if(item.category) return `<div class="ac-category">${item.category}</div>`;
+    return `<div class="ac-item${item.custom?' custom':''}" data-value="${escHtml(item.value)}" onclick="acSelect('${type}','${escJs(item.value)}')">${escHtml(item.label)}</div>`;
+  }).join('');
+  list.classList.add('open');
+}
+
+function acSelect(type,value){
+  const list=document.getElementById(type+'-list');
+  list.classList.remove('open');
+  if(type==='company'){
+    document.getElementById('company-input').value=value==='Other (type your company)'?'':value;
+    selectedCompany=value;
+  } else if(type==='role'){
+    document.getElementById('role-input').value=value==='Other (type your role)'?'':value;
+    selectedRole=value;
+  }
+}
+
+function acKeyNav(event,type){
+  const list=document.getElementById(type+'-list');
+  const items=[...list.querySelectorAll('.ac-item')];
+  if(event.key==='ArrowDown'){
+    acState[type].idx=Math.min(acState[type].idx+1,items.length-1);
+    items.forEach((el,i)=>el.classList.toggle('highlighted',i===acState[type].idx));
+    event.preventDefault();
+  } else if(event.key==='ArrowUp'){
+    acState[type].idx=Math.max(acState[type].idx-1,0);
+    items.forEach((el,i)=>el.classList.toggle('highlighted',i===acState[type].idx));
+    event.preventDefault();
+  } else if(event.key==='Enter'){
+    event.preventDefault();
+    if(acState[type].idx>=0&&items[acState[type].idx]){
+      acSelect(type,items[acState[type].idx].dataset.value);
+    } else {
+      const raw=document.getElementById(type+'-input').value.trim();
+      if(raw) acSelect(type,raw);
+    }
+  } else if(event.key==='Escape'){
+    list.classList.remove('open');
+  }
+}
+
+// Close on outside click
+document.addEventListener('click',e=>{
+  ['company','role'].forEach(t=>{
+    const wrap=document.getElementById(t+'-wrap');
+    if(wrap&&!wrap.contains(e.target)){
+      document.getElementById(t+'-list').classList.remove('open');
+    }
+  });
+});
+
+// ─── EMAIL VALIDATION ────────────────────────────────────
+function validateEmail(input){
+  const ok=/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(input.value.trim());
+  const err=document.getElementById('email-error');
+  const hasVal=input.value.trim().length>0;
+  err.style.display=(hasVal&&!ok)?'block':'none';
+  input.style.borderColor=(hasVal&&!ok)?'var(--error)':(hasVal&&ok)?'var(--success)':'';
+}
+
+// ─── UTILS ───────────────────────────────────────────────
+function escHtml(str){return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function escJs(str){return str.replace(/'/g,"\\'").replace(/\\/g,'\\\\')}
+
+// Set max month for role start
+document.getElementById('role_start').max=new Date().toISOString().slice(0,7);
+
+// Initialize search on load
+document.getElementById('company-input').addEventListener('focus',()=>acSearch('company'));
+document.getElementById('role-input').addEventListener('focus',()=>acSearch('role'));
+</script>
+</body>
+</html>

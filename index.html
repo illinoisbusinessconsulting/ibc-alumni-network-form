@@ -1166,6 +1166,7 @@ async function submitForm(){
   }
 }
 // Store the resume file globally
+// Store the resume file globally
 let resumeFileData = null;
 
 function handleFile(event, zoneId, nameId){
@@ -1189,14 +1190,27 @@ function handleFile(event, zoneId, nameId){
   // Read file as base64
   const reader = new FileReader();
   reader.onload = function(e) {
-    // Store the base64 encoded file
-    resumeFileData = e.target.result.split(',')[1]; // Remove data:application/pdf;base64, prefix
-    
-    // Show filename
-    const nameEl = document.getElementById(nameId);
-    nameEl.textContent = '✓ ' + file.name;
-    nameEl.style.display = 'block';
-    document.querySelector('#'+zoneId+' .upload-label').style.display = 'none';
+    try {
+      // Extract just the base64 part (after the comma)
+      const result = e.target.result;
+      const base64Index = result.indexOf(',');
+      resumeFileData = result.substring(base64Index + 1);
+      
+      console.log('Resume file loaded, size:', resumeFileData.length, 'characters');
+      
+      // Show filename
+      const nameEl = document.getElementById(nameId);
+      nameEl.textContent = '✓ ' + file.name;
+      nameEl.style.display = 'block';
+      document.querySelector('#'+zoneId+' .upload-label').style.display = 'none';
+    } catch (err) {
+      console.error('Error reading file:', err);
+      alert('Error reading file. Please try again.');
+    }
+  };
+  reader.onerror = function(err) {
+    console.error('FileReader error:', err);
+    alert('Error reading file.');
   };
   reader.readAsDataURL(file);
 }

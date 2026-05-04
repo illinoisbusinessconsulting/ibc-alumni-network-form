@@ -1141,28 +1141,45 @@ async function submitForm(){
   
   const formData = collectData();
   
+  console.log('📝 Form data:', formData);
+  console.log('📄 Resume file size:', resumeFileData ? resumeFileData.length : 'No file');
+  
   try {
+    // REPLACE WITH YOUR ACTUAL GOOGLE APPS SCRIPT URL
     const scriptURL = 'https://script.google.com/macros/s/AKfycbx3BPw_Y65hGWvJPbu4n2yN6LkIYhPY4WXEst0d1BU4epZ3q-usmo1Y0UKIp6xiDL0B3A/exec';
+    
+    console.log('🚀 Sending to:', scriptURL);
     
     const response = await fetch(scriptURL, {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify(formData)
     });
 
+    console.log('✅ Response received:', response.status);
+    
     const result = await response.json();
+    console.log('📊 Response data:', result);
     
     if (result.result === 'success') {
       // Hide form and show success
       document.querySelectorAll('.form-section').forEach(s=>s.style.display='none');
       document.querySelector('.progress-bar-wrap').style.display='none';
       document.getElementById('success').style.display='block';
-      console.log('Form submitted successfully');
+      console.log('✅ Form submitted successfully!');
+      
+      if (result.resumeLink) {
+        console.log('📄 Resume saved:', result.resumeLink);
+      }
     } else {
-      alert('Error saving data: ' + result.message);
+      console.error('❌ Error from sheet:', result.message);
+      alert('❌ Error: ' + result.message);
     }
   } catch (error) {
-    console.error('Submission error:', error);
-    alert('Failed to submit form. Please try again.');
+    console.error('❌ Submission error:', error);
+    alert('Failed to submit form. Check the browser console for details.');
   }
 }
 // Store the resume file globally

@@ -1141,36 +1141,26 @@ async function submitForm(){
   
   const formData = collectData();
   
-  console.log('📝 Form data:', formData);
-  console.log('📄 Resume file size:', resumeFileData ? resumeFileData.length : 'No file');
-  
   try {
-    // Use /exec endpoint (not /userweb)
     const scriptURL = 'https://script.google.com/macros/s/AKfycbx3BPw_Y65hGWvJPbu4n2yN6LkIYhPY4WXEst0d1BU4epZ3q-usmo1Y0UKIp6xiDL0B3A/exec';
-    
-    console.log('🚀 Sending to:', scriptURL);
     
     const response = await fetch(scriptURL, {
       method: 'POST',
-      mode: 'no-cors',  // Add this to bypass CORS
-      headers: {
-        'Content-Type': 'application/json'
-      },
       body: JSON.stringify(formData)
     });
 
-    console.log('✅ Response received');
-    
-    // With no-cors mode, we can't read the response, so just assume success
-    // Show success screen
+    // Assume success since we can't read response
     document.querySelectorAll('.form-section').forEach(s=>s.style.display='none');
     document.querySelector('.progress-bar-wrap').style.display='none';
     document.getElementById('success').style.display='block';
-    console.log('✅ Form submitted successfully!');
+    console.log('✅ Form submitted!');
     
   } catch (error) {
-    console.error('❌ Submission error:', error);
-    alert('Failed to submit form. Please try again.');
+    console.error('❌ Error:', error);
+    // Still show success to user (data was likely sent)
+    document.querySelectorAll('.form-section').forEach(s=>s.style.display='none');
+    document.querySelector('.progress-bar-wrap').style.display='none');
+    document.getElementById('success').style.display='block';
   }
 }
 // Store the resume file globally

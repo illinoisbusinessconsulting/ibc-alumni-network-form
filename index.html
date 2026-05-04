@@ -1136,12 +1136,35 @@ function v(id){
   return el&&el.value.trim()!=='';
 }
 
-function submitForm(){
+async function submitForm(){
   if(!validateStep(3)) return;
-  document.querySelectorAll('.form-section').forEach(s=>s.style.display='none');
-  document.querySelector('.progress-bar-wrap').style.display='none';
-  document.getElementById('success').style.display='block';
-  console.log('Form data:',collectData());
+  
+  const formData = collectData();
+  
+  try {
+    // PASTE YOUR GOOGLE APPS SCRIPT URL HERE
+    const scriptURL = 'https://script.google.com/macros/d/YOUR_SCRIPT_ID/userweb';
+    
+    const response = await fetch(scriptURL, {
+      method: 'POST',
+      body: JSON.stringify(formData)
+    });
+
+    const result = await response.json();
+    
+    if (result.result === 'success') {
+      // Hide form and show success
+      document.querySelectorAll('.form-section').forEach(s=>s.style.display='none');
+      document.querySelector('.progress-bar-wrap').style.display='none';
+      document.getElementById('success').style.display='block';
+      console.log('Form submitted successfully');
+    } else {
+      alert('Error saving data: ' + result.message);
+    }
+  } catch (error) {
+    console.error('Submission error:', error);
+    alert('Failed to submit form. Please try again.');
+  }
 }
 function collectData(){
   return{

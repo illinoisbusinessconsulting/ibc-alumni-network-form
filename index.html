@@ -1166,6 +1166,43 @@ async function submitForm(){
     alert('Failed to submit form. Please try again.');
   }
 }
+// Store the resume file globally
+let resumeFileData = null;
+
+function handleFile(event, zoneId, nameId){
+  const file = event.target.files[0];
+  if(!file) return;
+  
+  // Check file size (10 MB limit)
+  if(file.size > 10*1024*1024){
+    alert('File exceeds 10 MB limit.');
+    event.target.value = '';
+    return;
+  }
+  
+  // Check file type
+  if(file.type !== 'application/pdf'){
+    alert('Only PDF files are allowed.');
+    event.target.value = '';
+    return;
+  }
+  
+  // Read file as base64
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    // Store the base64 encoded file
+    resumeFileData = e.target.result.split(',')[1]; // Remove data:application/pdf;base64, prefix
+    
+    // Show filename
+    const nameEl = document.getElementById(nameId);
+    nameEl.textContent = '✓ ' + file.name;
+    nameEl.style.display = 'block';
+    document.querySelector('#'+zoneId+' .upload-label').style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+
+// Update collectData to include resume
 function collectData(){
   return{
     email:document.getElementById('email').value,
@@ -1185,21 +1222,10 @@ function collectData(){
     contact_pref:document.querySelector('input[name=contact_pref]:checked')?.value,
     mentor:document.querySelector('input[name=mentor]:checked')?.value,
     advise:[...document.querySelectorAll('#advise-areas input:checked')].map(i=>i.value),
-    extra:document.getElementById('extra').value
+    extra:document.getElementById('extra').value,
+    resumeFile: resumeFileData || null  // Add resume file
   };
 }
-
-// ─── FILE UPLOAD ─────────────────────────────────────────
-function handleFile(event,zoneId,nameId){
-  const file=event.target.files[0];
-  if(!file) return;
-  if(file.size>10*1024*1024){alert('File exceeds 10 MB limit.');event.target.value='';return;}
-  const nameEl=document.getElementById(nameId);
-  nameEl.textContent='✓ '+file.name;
-  nameEl.style.display='block';
-  document.querySelector('#'+zoneId+' .upload-label').style.display='none';
-}
-
 // ─── AUTOCOMPLETE ENGINE ─────────────────────────────────
 const acState={company:{idx:-1},role:{idx:-1}};
 

@@ -1068,24 +1068,28 @@ const ROLES={
 let currentStep=0;
 let selectedCompany='';
 let selectedRole='';
+let resumeFileData=null;
 
 // ─── STEP NAVIGATION ─────────────────────────────────────
 function goToStep(n){
-  if(n>currentStep) return; // can only go back
+  if(n>currentStep) return;
   currentStep=n;
   updateUI();
 }
+
 function nextStep(from){
   if(!validateStep(from)) return;
   currentStep=from+1;
   updateUI();
   window.scrollTo({top:0,behavior:'smooth'});
 }
+
 function prevStep(from){
   currentStep=from-1;
   updateUI();
   window.scrollTo({top:0,behavior:'smooth'});
 }
+
 function updateUI(){
   document.querySelectorAll('.form-section').forEach((s,i)=>{
     s.classList.toggle('active',i===currentStep);
@@ -1131,12 +1135,13 @@ function validateStep(step){
   }
   return true;
 }
+
 function v(id){
   const el=document.getElementById(id);
   return el&&el.value.trim()!=='';
 }
 
-async function submitForm(){
+function submitForm(){
   if(!validateStep(3)) return;
   
   const formData = collectData();
@@ -1144,76 +1149,24 @@ async function submitForm(){
   try {
     const scriptURL = 'https://script.google.com/macros/s/AKfycbx3BPw_Y65hGWvJPbu4n2yN6LkIYhPY4WXEst0d1BU4epZ3q-usmo1Y0UKIp6xiDL0B3A/exec';
     
-    const response = await fetch(scriptURL, {
+    const response = fetch(scriptURL, {
       method: 'POST',
       body: JSON.stringify(formData)
     });
 
-    // Assume success since we can't read response
     document.querySelectorAll('.form-section').forEach(s=>s.style.display='none');
     document.querySelector('.progress-bar-wrap').style.display='none';
     document.getElementById('success').style.display='block';
-    console.log('✅ Form submitted!');
+    console.log('✅ Form submitted successfully!');
     
   } catch (error) {
-    console.error('❌ Error:', error);
-    // Still show success to user (data was likely sent)
+    console.error('Error:', error);
     document.querySelectorAll('.form-section').forEach(s=>s.style.display='none');
-    document.querySelector('.progress-bar-wrap').style.display='none');
+    document.querySelector('.progress-bar-wrap').style.display='none';
     document.getElementById('success').style.display='block';
   }
 }
-// Store the resume file globally
-// Store the resume file globally
-let resumeFileData = null;
 
-function handleFile(event, zoneId, nameId){
-  const file = event.target.files[0];
-  if(!file) return;
-  
-  // Check file size (10 MB limit)
-  if(file.size > 10*1024*1024){
-    alert('File exceeds 10 MB limit.');
-    event.target.value = '';
-    return;
-  }
-  
-  // Check file type
-  if(file.type !== 'application/pdf'){
-    alert('Only PDF files are allowed.');
-    event.target.value = '';
-    return;
-  }
-  
-  // Read file as base64
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    try {
-      // Extract just the base64 part (after the comma)
-      const result = e.target.result;
-      const base64Index = result.indexOf(',');
-      resumeFileData = result.substring(base64Index + 1);
-      
-      console.log('Resume file loaded, size:', resumeFileData.length, 'characters');
-      
-      // Show filename
-      const nameEl = document.getElementById(nameId);
-      nameEl.textContent = '✓ ' + file.name;
-      nameEl.style.display = 'block';
-      document.querySelector('#'+zoneId+' .upload-label').style.display = 'none';
-    } catch (err) {
-      console.error('Error reading file:', err);
-      alert('Error reading file. Please try again.');
-    }
-  };
-  reader.onerror = function(err) {
-    console.error('FileReader error:', err);
-    alert('Error reading file.');
-  };
-  reader.readAsDataURL(file);
-}
-
-// Update collectData to include resume
 function collectData(){
   return{
     email:document.getElementById('email').value,
@@ -1234,9 +1187,52 @@ function collectData(){
     mentor:document.querySelector('input[name=mentor]:checked')?.value,
     advise:[...document.querySelectorAll('#advise-areas input:checked')].map(i=>i.value),
     extra:document.getElementById('extra').value,
-    resumeFile: resumeFileData || null  // Add resume file
+    resumeFile:resumeFileData||null
   };
 }
+
+// ─── FILE UPLOAD ─────────────────────────────────────────
+function handleFile(event,zoneId,nameId){
+  const file=event.target.files[0];
+  if(!file) return;
+  
+  if(file.size>10*1024*1024){
+    alert('File exceeds 10 MB limit.');
+    event.target.value='';
+    return;
+  }
+  
+  if(file.type!=='application/pdf'){
+    alert('Only PDF files are allowed.');
+    event.target.value='';
+    return;
+  }
+  
+  const reader=new FileReader();
+  reader.onload=function(e){
+    try {
+      const result=e.target.result;
+      const base64Index=result.indexOf(',');
+      resumeFileData=result.substring(base64Index+1);
+      
+      console.log('Resume file loaded, size:',resumeFileData.length,'characters');
+      
+      const nameEl=document.getElementById(nameId);
+      nameEl.textContent='✓ '+file.name;
+      nameEl.style.display='block';
+      document.querySelector('#'+zoneId+' .upload-label').style.display='none';
+    } catch (err){
+      console.error('Error reading file:',err);
+      alert('Error reading file. Please try again.');
+    }
+  };
+  reader.onerror=function(err){
+    console.error('FileReader error:',err);
+    alert('Error reading file.');
+  };
+  reader.readAsDataURL(file);
+}
+
 // ─── AUTOCOMPLETE ENGINE ─────────────────────────────────
 const acState={company:{idx:-1},role:{idx:-1}};
 
@@ -1322,7 +1318,6 @@ function acKeyNav(event,type){
   }
 }
 
-// Close on outside click
 document.addEventListener('click',e=>{
   ['company','role'].forEach(t=>{
     const wrap=document.getElementById(t+'-wrap');
